@@ -6,7 +6,8 @@ stages:
 
 setup:
   stage: setup
-  script: echo `java -version`
+  script: java -version > java-version.txt
+  script: apk add nodejs
   script: nvm install 8.9
   
 compile:
