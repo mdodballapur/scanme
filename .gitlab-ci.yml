@@ -7,8 +7,13 @@ stages:
 setup:
   stage: setup
   script: java -version > java-version.txt
-  script: apk add nodejs
+  artifacts:
+    paths:
+    - java-version.txt
+  script: curl https://raw.githubusercontent.com/creationix/nvm/v0.25.0/install.sh | bash
+  script: source ~/.bashrc
   script: nvm install 8.9
+
   
 compile:
   stage: compile
