@@ -1,0 +1,10 @@
+image: 8u171-apline3.8
+
+stages:
+  - compile
+
+compile:
+  stage: compile
+  script: mvn package
+
+
