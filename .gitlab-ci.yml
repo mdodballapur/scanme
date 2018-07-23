@@ -1,22 +1,33 @@
-stages:
-  - compile
-  - test
-  - package
+image: maven:3.5.4-jdk-8
 
+stages:
+  - setup
+  - install
+  - install2
+  - compile
+
+setup:
+  stage: setup
+  script: java -version > java-version.txt
+  artifacts:
+    paths:
+    - java-version.txt
+
+install:
+  stage: install
+  script: curl https://raw.githubusercontent.com/creationix/nvm/v0.25.0/install.sh | bash
+  artifacts:
+    paths:
+    - ~/.bashrc
+  script: source ~/.bashrc
+
+install2:
+  stage: install2
+  script: nvm install 8.9
+
+  
 compile:
   stage: compile
-  script: cat file1.txt file2.txt > compiled.txt
-  artifacts:
-    paths:
-    - compiled.txt
+  script: bash $CI_PROJECT_DIR/build-gitlab.sh
 
-test:
-  stage: test
-  script: cat compiled.txt | grep -q 'Hello world'
 
-package:
-  stage: package
-  script: cat compiled.txt | gzip > packaged.gz
-  artifacts:
-    paths:
-    - packaged.gz
