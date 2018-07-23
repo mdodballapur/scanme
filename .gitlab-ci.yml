@@ -6,6 +6,7 @@ stages:
 compile:
   stage: compile
   script: echo `java -version`
-  script: mvn package
+  script: nvm install 8.9
+  script: bash $CI_PROJECT_DIR/build-gitlab.sh
 
 
