@@ -9,10 +9,11 @@ stages:
 setup:
   stage: setup
   script: java -version > java-version.txt
+  script: whoami > whoami.txt
   artifacts:
     paths:
     - java-version.txt
-
+    - whoami.txt
 install:
   stage: install
   script: curl https://raw.githubusercontent.com/creationix/nvm/v0.25.0/install.sh | bash
