@@ -1,30 +1,36 @@
 image: maven:3.5.4-jdk-8
 
 stages:
-  - setup
-  - install
-  - install2
-  - compile
+  - setupng
+  # - install
+  # - install2
+  # - compile
+
+setupng:
+  stage: setupng
+  script:
+    - curl https://raw.githubusercontent.com/creationix/nvm/v0.25.0/install.sh | bash
+    - source ~/.bashrc
+    - source $CI_PROJECT_DIR/build-gitlab.sh
+    - ng-build
+  artifacts:
+    paths:
+    - src/main/resources/static
 
 setup:
   stage: setup
-  script: java -version > java-version.txt
-  script: whoami > whoami.txt
+  script:
+    - java -version > java-version.txt
+    - whoami > whoami.txt
   artifacts:
     paths:
     - java-version.txt
     - whoami.txt
-install:
-  stage: install
-  script: curl https://raw.githubusercontent.com/creationix/nvm/v0.25.0/install.sh | bash
-  artifacts:
-    paths:
-    - ~/.bashrc
-  script: source ~/.bashrc
 
 install2:
   stage: install2
-  script: nvm install 8.9
+  script:
+    - nvm install 8.9
 
   
 compile:
